@@ -26,7 +26,7 @@ function Login({ setUser }) {
     <Container>
       <Content>
         <AmazonLogo src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" />
-        <h1>Sign into Amazon</h1>
+        <LoginTitle>Sign In into Amazon</LoginTitle>
         <LoginButton onClick={signIn}>Sign In with Google</LoginButton>
       </Content>
     </Container>
@@ -50,6 +50,16 @@ const Content = styled.div`
   border-radius: 5px;
   box-shadow: 0 1px 3px grey;
   text-align: center;
+  @media screen and (max-width: 426px) {
+    width: 300px;
+    padding: 50px 0px 50px 0px;
+  }
+`;
+
+const LoginTitle = styled.h1`
+  @media screen and (max-width: 426px) {
+    font-size: 28px;
+  }
 `;
 
 const AmazonLogo = styled.img`
@@ -66,4 +76,7 @@ const LoginButton = styled.button`
   font-size: 16px;
   padding: 4px 8px;
   cursor: pointer;
+  @media screen and (max-width: 426px) {
+    width: 200px;
+  }
 `;
