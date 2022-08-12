@@ -4,12 +4,6 @@ import NumberFormat from "react-number-format";
 import { db } from "./firebase_config";
 
 function CartTotal({ getTotalPrice, getCount }) {
-  const checkout = () => {
-    getCount() === 0
-      ? alert("Nothing in the cart")
-      : alert("Your Order has been placed");
-  };
-
   const deleteItem = async () => {
     const count = getCount();
     if (count === 0) {
@@ -25,11 +19,6 @@ function CartTotal({ getTotalPrice, getCount }) {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleCheckoutDelete = () => {
-    deleteItem();
-    checkout();
   };
 
   return (
