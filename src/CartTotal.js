@@ -10,14 +10,21 @@ function CartTotal({ getTotalPrice, getCount }) {
       : alert("Your Order has been placed");
   };
 
-  const deleteItem = () => {
-    db.collection("cartItems")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          doc.ref.delete();
-        });
-      });
+  const deleteItem = async () => {
+    const count = getCount();
+    if (count === 0) {
+      alert("Nothing in the cart");
+      return;
+    }
+    try {
+      const snapshot = await db.collection("cartItems").get();
+      console.log(snapshot);
+      const promiseItems = snapshot.docs.map((doc) => doc.ref.delete());
+      await Promise.all(promiseItems);
+      alert("Your Order has been placed");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleCheckoutDelete = () => {
@@ -36,9 +43,7 @@ function CartTotal({ getTotalPrice, getCount }) {
           prefix={"$"}
         />
       </Subtotal>
-      <CheckOutButton onClick={handleCheckoutDelete}>
-        Proceed to checkout
-      </CheckOutButton>
+      <CheckOutButton onClick={deleteItem}>Proceed to checkout</CheckOutButton>
     </Container>
   );
 }
